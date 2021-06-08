@@ -29,7 +29,7 @@ using System.IO; -> Para leer las respuestas de la API
 
 using System.Net; -> Para el uso el consumo en Http
 
-ACLARACIONES: No se utilizó el consumo de servicios por EndPoint. El llamado a la API se realiza directamente en la solución Compra y se pueden ver los resultados por consola
+ACLARACIONES: No se utilizó el consumo de servicios por EndPoint. El llamado a la API e infomración solicitada se realiza directamente en la solución Compra y se pueden ver los resultados por consola
 
 Link del repositorio "Consumo de Api compra electronica": https://github.com/frankestein3/Consumo-de-Api-compra-electronica.git
 
