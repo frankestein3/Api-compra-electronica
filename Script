@@ -1,0 +1,214 @@
+USE [master]
+GO
+/****** Object:  Database [compraElectronica]    Script Date: 6/06/2021 7:02:21 p. m. ******/
+CREATE DATABASE [compraElectronica]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'compraElectronica', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\compraElectronica.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'compraElectronica_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\compraElectronica_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [compraElectronica] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [compraElectronica].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [compraElectronica] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [compraElectronica] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [compraElectronica] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [compraElectronica] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [compraElectronica] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [compraElectronica] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [compraElectronica] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [compraElectronica] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [compraElectronica] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [compraElectronica] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [compraElectronica] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [compraElectronica] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [compraElectronica] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [compraElectronica] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [compraElectronica] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [compraElectronica] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [compraElectronica] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [compraElectronica] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [compraElectronica] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [compraElectronica] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [compraElectronica] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [compraElectronica] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [compraElectronica] SET RECOVERY FULL 
+GO
+ALTER DATABASE [compraElectronica] SET  MULTI_USER 
+GO
+ALTER DATABASE [compraElectronica] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [compraElectronica] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [compraElectronica] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [compraElectronica] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [compraElectronica] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [compraElectronica] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'compraElectronica', N'ON'
+GO
+ALTER DATABASE [compraElectronica] SET QUERY_STORE = OFF
+GO
+USE [compraElectronica]
+GO
+/****** Object:  Table [dbo].[Cliente]    Script Date: 6/06/2021 7:02:22 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cliente](
+	[id_cliente] [int] IDENTITY(1,1) NOT NULL,
+	[nombreCliente] [varchar](20) NULL,
+	[apellidoCliente] [varchar](20) NULL,
+	[telefono] [varchar](15) NULL,
+	[direccion] [varchar](30) NULL,
+	[correo] [varchar](30) NULL,
+ CONSTRAINT [PK_Cliente] PRIMARY KEY CLUSTERED 
+(
+	[id_cliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Factura]    Script Date: 6/06/2021 7:02:22 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Factura](
+	[id_factura] [int] IDENTITY(1,1) NOT NULL,
+	[id_producto] [int] NULL,
+	[id_pedido] [int] NULL,
+ CONSTRAINT [PK_Factura] PRIMARY KEY CLUSTERED 
+(
+	[id_factura] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pedido]    Script Date: 6/06/2021 7:02:22 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pedido](
+	[id_pedido] [int] IDENTITY(1,1) NOT NULL,
+	[id_cliente] [int] NULL,
+	[fecha] [varchar](30) NULL,
+ CONSTRAINT [PK_Pedido] PRIMARY KEY CLUSTERED 
+(
+	[id_pedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Producto]    Script Date: 6/06/2021 7:02:22 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Producto](
+	[id_producto] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [varchar](20) NULL,
+	[precio] [varchar](30) NULL,
+ CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED 
+(
+	[id_producto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Cliente] ON 
+
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (1, N'Pepito', N'Perez', N'3782934', N'carrera 67 #56-12', N'pepito@gmail.com')
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (2, N'Camila', N'Correa', N'2013490', N'calle 78 A sur #23-09', N'camila@hotmail.com')
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (3, N'Bruno', N'Diaz', N'3220983459', N'Calle 98 #90-12', N'bruno@gmail.com')
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (4, N'Valentina', N'Hernandez', N'3098764032', N'Carrera 58 #54-12', N'valen@gmail.com')
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (5, N'Pedro', N'Perez', N'2093456', N'Calle 23 sur #34-12', N'pedro@gmail.com')
+INSERT [dbo].[Cliente] ([id_cliente], [nombreCliente], [apellidoCliente], [telefono], [direccion], [correo]) VALUES (6, N'Sara', N'Estrada', N'3002903454', N'Carrera 45 #34-12', N'sara@gmail.com')
+SET IDENTITY_INSERT [dbo].[Cliente] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Factura] ON 
+
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (1, 1, 1)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (2, 2, 1)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (3, 4, 3)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (4, 3, 2)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (5, 3, 2)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (6, 4, 4)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (7, 2, 5)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (8, 6, 1)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (9, 2, 6)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (10, 4, 4)
+INSERT [dbo].[Factura] ([id_factura], [id_producto], [id_pedido]) VALUES (11, 3, 7)
+SET IDENTITY_INSERT [dbo].[Factura] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Pedido] ON 
+
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (1, 1, N'20/1/2019')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (2, 2, N'12/03/2021')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (3, 1, N'06/06/2021')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (4, 3, N'20/09/2020')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (5, 4, N'20/08/2010')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (6, 2, N'01/01/2021')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (7, 1, N'02/02/2020')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (8, 3, N'03/03/2020')
+INSERT [dbo].[Pedido] ([id_pedido], [id_cliente], [fecha]) VALUES (9, 4, N'15/05/2020')
+SET IDENTITY_INSERT [dbo].[Pedido] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Producto] ON 
+
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (1, N'Leche', N'3500')
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (2, N'Huevos', N'10000')
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (3, N'Pan', N'5000')
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (4, N'Arroz', N'7800')
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (5, N'Panela', N'9000')
+INSERT [dbo].[Producto] ([id_producto], [nombre], [precio]) VALUES (6, N'Azucar', N'8700')
+SET IDENTITY_INSERT [dbo].[Producto] OFF
+GO
+ALTER TABLE [dbo].[Factura]  WITH CHECK ADD  CONSTRAINT [FK_FacturaPedido] FOREIGN KEY([id_pedido])
+REFERENCES [dbo].[Pedido] ([id_pedido])
+GO
+ALTER TABLE [dbo].[Factura] CHECK CONSTRAINT [FK_FacturaPedido]
+GO
+ALTER TABLE [dbo].[Factura]  WITH CHECK ADD  CONSTRAINT [FK_FacturaProducto] FOREIGN KEY([id_producto])
+REFERENCES [dbo].[Producto] ([id_producto])
+GO
+ALTER TABLE [dbo].[Factura] CHECK CONSTRAINT [FK_FacturaProducto]
+GO
+ALTER TABLE [dbo].[Pedido]  WITH CHECK ADD  CONSTRAINT [FK_PedidoCliente] FOREIGN KEY([id_cliente])
+REFERENCES [dbo].[Cliente] ([id_cliente])
+GO
+ALTER TABLE [dbo].[Pedido] CHECK CONSTRAINT [FK_PedidoCliente]
+GO
+USE [master]
+GO
+ALTER DATABASE [compraElectronica] SET  READ_WRITE 
+GO
